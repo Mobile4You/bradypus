@@ -146,7 +146,7 @@ customer_api_template_v2 = "{
         \"DATABASE_USER\": \"${DATABASE_USER}\",
         \"DATABASE_PASSWORD\": \"${DATABASE_PASSWORD}\",
         \"DATABASE_HOST\": \"${DATABASE_HOST}\",
-        \"product_HOST\": \"${product_HOST}\",
+        \"PRODUCT_HOST\": \"${PRODUCT_HOST}\",
         \"SERVICE_MODEL\": \"api\"
     }
 }"
@@ -227,7 +227,7 @@ task_variables = [
     TaskVariable.new(key: "DATABASE_USER",      value: "thunder", environment_id: staging.id, task_id: task_customer_api_template_v2.id),
     TaskVariable.new(key: "DATABASE_PASSWORD",  value: "thunderhoo", environment_id: staging.id, task_id: task_customer_api_template_v2.id),
     TaskVariable.new(key: "DATABASE_HOST",      value: "db_host_stg_customer", environment_id: staging.id, task_id: task_customer_api_template_v2.id),
-    TaskVariable.new(key: "product_HOST",        value: "http://product_consul...", environment_id: staging.id, task_id: task_customer_api_template_v2.id),
+    TaskVariable.new(key: "PRODUCT_HOST",        value: "http://product_consul...", environment_id: staging.id, task_id: task_customer_api_template_v2.id),
     
     TaskVariable.new(key: "RESOURCE_MEMORYMB",  value: "1024", environment_id: production.id, task_id: task_customer_api_template_v2.id),
     TaskVariable.new(key: "RAILS_ENV",          value: "production", environment_id: production.id, task_id: task_customer_api_template_v2.id),
@@ -235,7 +235,7 @@ task_variables = [
     TaskVariable.new(key: "DATABASE_USER",      value: "thunder", environment_id: production.id, task_id: task_customer_api_template_v2.id),
     TaskVariable.new(key: "DATABASE_PASSWORD",  value: "thunderhoo", environment_id: production.id, task_id: task_customer_api_template_v2.id),
     TaskVariable.new(key: "DATABASE_HOST",      value: "db_host_prd_customer", environment_id: production.id, task_id: task_customer_api_template_v2.id),
-    TaskVariable.new(key: "product_HOST",         value: "http://product_consul...", environment_id: production.id, task_id: task_customer_api_template_v2.id),
+    TaskVariable.new(key: "PRODUCT_HOST",         value: "http://product_consul...", environment_id: production.id, task_id: task_customer_api_template_v2.id),
 
     TaskVariable.new(key: "RESOURCE_MEMORYMB",  value: "1024", environment_id: staging.id, task_id: task_product_api_template.id),
     TaskVariable.new(key: "RAILS_ENV",          value: "staging", environment_id: staging.id, task_id: task_product_api_template.id),
