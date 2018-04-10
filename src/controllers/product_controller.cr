@@ -59,7 +59,7 @@ class ProductController < ApplicationController
         end
       else
         @errors = product_params.errors
-        flash["danger"] = "Could not update Product!!!!"
+        flash["danger"] = "Could not update Product!"
         render("edit.slang")
       end
     else
