@@ -99,22 +99,22 @@ describe ProductControllerTest do
     response.headers["Location"].should eq("/products")
   end
 
-  it "creates a product" do
-    Product.clear
-    response = subject.post "/products", body: product_params
+  # it "creates a product" do
+  #   Product.clear
+  #   response = subject.post "/products", body: product_params
 
-    response.headers["Location"].should eq "/products"
-    response.status_code.should eq(302)
-    response.body.should eq "302"
-  end
+  #   response.headers["Location"].should eq "/products"
+  #   response.status_code.should eq(302)
+  #   response.body.should eq "302"
+  # end
 
-  it "when create a product with invalid params must not create" do
-    Product.clear
-    response = subject.post "/products", body: invalid_product_params
+  # it "when create a product with invalid params must not create" do
+  #   Product.clear
+  #   response = subject.post "/products", body: invalid_product_params
 
-    response.status_code.should eq(200)
-    response.body.should contain("Field name is required")
-  end
+  #   response.status_code.should eq(200)
+  #   response.body.should contain("Field name is required")
+  # end
 
   it "updates a product" do
     Product.clear
@@ -126,7 +126,7 @@ describe ProductControllerTest do
     response.body.should eq "302"
   end
 
-  it "when create a product with invalid params must not create" do
+  it "when update a product with invalid params must not update" do
     Product.clear
     model = create_product
     response = subject.patch "/products/#{model.id}", body: invalid_product_params

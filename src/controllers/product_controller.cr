@@ -1,5 +1,7 @@
+require "../actions/products/*"
+
 class ProductController < ApplicationController
-  getter errors = [] of Amber::Validators::Error
+  getter errors = [] of String
   
   def index
     products = Product.all
@@ -32,7 +34,7 @@ class ProductController < ApplicationController
       end
     else
       product = Product.new
-      @errors = product_params.errors
+      # @errors = product_params.errors
       render("new.slang")
     end
   end
@@ -47,24 +49,16 @@ class ProductController < ApplicationController
   end
 
   def update
-    if product = Product.find(params["id"])
-      if product_params.valid?
-        product.set_attributes product_params.validate!
-        if product.save
-          flash["success"] = "Updated Product successfully."
-          redirect_to "/products"
-        else
-          flash["danger"] = "Could not update Product!"
-          render("edit.slang")
-        end
-      else
-        @errors = product_params.errors
+    result = Products::UpdateProduct.new(params["id"].to_i64, {"name" => params["name"]}).update
+    if result.success
+      flash["success"] = "Updated Product successfully."
+      redirect_to "/products"
+    else 
+      if product = Product.find(params["id"])
+        @errors = result.errors
         flash["danger"] = "Could not update Product!"
         render("edit.slang")
       end
-    else
-      flash["warning"] = "Product with ID #{params["id"]} Not Found"
-      redirect_to "/products"
     end
   end
 
