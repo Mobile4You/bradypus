@@ -24,7 +24,7 @@ module Products
         end
 
         private def valid?
-            @errors << "invalid field name" if @update_product.fetch("name", "").blank?
+            @errors << "Field name is not valid" if @update_product.fetch("name", "").blank?
             @errors.empty?
         end
     end

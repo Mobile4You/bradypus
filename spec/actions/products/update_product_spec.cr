@@ -29,7 +29,7 @@ describe Products::UpdateProduct do
 
       action.success.should be_false
       action.errors.size.should eq(1)
-      action.errors[0].should eq("invalid field name")
+      action.errors[0].should eq("Field name is not valid")
     end
 
     it "when update with missing field must return invalid result with errors" do 
@@ -39,7 +39,7 @@ describe Products::UpdateProduct do
 
       action.success.should be_false
       action.errors.size.should eq(1)
-      action.errors[0].should eq("invalid field name")
+      action.errors[0].should eq("Field name is not valid")
     end
 
     it "when update with correct params must return successful result" do 
