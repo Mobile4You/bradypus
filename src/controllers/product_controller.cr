@@ -33,20 +33,6 @@ class ProductController < ApplicationController
       @errors = result.errors
       render("new.slang")
     end
-    # if product_params.valid?
-    #   product = Product.new(product_params.validate!)
-    #   if product.save
-    #     flash["success"] = "Created Product successfully."
-    #     redirect_to "/products"
-    #   else
-    #     flash["danger"] = "Could not create Product!"
-    #     render("new.slang")
-    #   end
-    # else
-    #   product = Product.new
-    #   # @errors = product_params.errors
-    #   render("new.slang")
-    # end
   end
 
   def edit
