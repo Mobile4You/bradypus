@@ -24,7 +24,7 @@ class ProductController < ApplicationController
 
   def create
     result = Products::CreateProduct.new({"name" => params["name"]}).create
-    if result.success
+    if result.success?
       flash["success"] = "Created Product successfully."
       redirect_to "/products"
     else
@@ -46,7 +46,7 @@ class ProductController < ApplicationController
 
   def update
     result = Products::UpdateProduct.new(params["id"].to_i64, {"name" => params["name"]}).update
-    if result.success
+    if result.success?
       flash["success"] = "Updated Product successfully."
       redirect_to "/products"
     else 

@@ -1,15 +1,11 @@
 class ActionResult
-    getter errors : Array(String)
+    getter errors = [] of String
 
-    def initialize(success : Bool)
-        @errors = [] of String
-        @errors << "Generic Error" unless success
+    def add_error(error)
+        @errors << error
     end
 
-    def initialize(@errors : Array(String))
-    end
-
-    def success
+    def success?
         @errors.size == 0
     end
 end
