@@ -10,7 +10,7 @@ describe Products::UpdateProduct do
     it "when create with invalid name must return invalid result with errors" do
         action = Products::CreateProduct.new({"name" => ""}).create
 
-        action.succsuccess?ess.should be_false
+        action.success?.should be_false
         action.errors.size.should eq(1)
         action.errors[0].should eq("Field name is not valid")
     end

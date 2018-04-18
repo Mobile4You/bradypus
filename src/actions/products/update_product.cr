@@ -12,12 +12,10 @@ module Products
             product = Product.find(@id)
             if product.nil?
                 @result.add_error("Product not found")
-                # return ActionResult.new(@errors)
                 return @result
             end
 
             unless valid?
-                # return ActionResult.new(@errors)
                 return @result
             end
 
@@ -28,14 +26,11 @@ module Products
             end
 
             @result
-            # ActionResult.new product.save
         end
 
         private def valid?
             @result.add_error "Field name is not valid" if @update_product.fetch("name", "").blank?
             @result.success?
-            # @errors << "Field name is not valid" if @update_product.fetch("name", "").blank?
-            # @errors.empty?
         end
     end
 end

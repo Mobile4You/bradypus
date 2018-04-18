@@ -6,6 +6,6 @@ class ActionResult
     end
 
     def success?
-        @errors.size == 0
+        @errors.empty?
     end
 end
