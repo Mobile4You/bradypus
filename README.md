@@ -5,7 +5,8 @@ This project is powered by [Amber Framework](https://amberframework.org/).
 ## Installation
 
 1. [Install required dependencies](https://github.com/amberframework/online-docs/blob/master/getting-started/quickstart/zero-to-deploy.md#install-crystal-and-amber)
-2. Run `shards install`
+2. Required libraries "https://github.com/crystal-lang/crystal/wiki/All-required-libraries"
+3. Run `shards install`
 
 ## Usage
 
