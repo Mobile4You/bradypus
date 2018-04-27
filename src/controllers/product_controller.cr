@@ -2,7 +2,7 @@ require "../actions/products/*"
 
 class ProductController < ApplicationController
   getter errors = [] of String
-  
+
   def index
     products = Product.all
     render("index.slang")
@@ -49,7 +49,7 @@ class ProductController < ApplicationController
     if result.success?
       flash["success"] = "Updated Product successfully."
       redirect_to "/products"
-    else 
+    else
       if product = Product.find(params["id"])
         @errors = result.errors
         flash["danger"] = "Could not update Product!"
