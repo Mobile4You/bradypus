@@ -40,7 +40,6 @@ describe ProductControllerTest do
   subject = ProductControllerTest.new
 
   it "renders product index template" do
-    Product.clear
     response = subject.get "/products"
 
     response.status_code.should eq(200)
@@ -48,7 +47,6 @@ describe ProductControllerTest do
   end
 
   it "renders product show template" do
-    Product.clear
     model = create_product
     location = "/products/#{model.id}"
 
@@ -59,7 +57,6 @@ describe ProductControllerTest do
   end
 
   it "when render product by id with absent customer must contains product not found" do
-    Product.clear
     location = "/products/1"
 
     response = subject.get location
@@ -69,7 +66,6 @@ describe ProductControllerTest do
   end
 
   it "renders product new template" do
-    Product.clear
     location = "/products/new"
 
     response = subject.get location
@@ -79,7 +75,6 @@ describe ProductControllerTest do
   end
 
   it "renders product edit template" do
-    Product.clear
     model = create_product
     location = "/products/#{model.id}/edit"
 
@@ -90,7 +85,6 @@ describe ProductControllerTest do
   end
 
   it "when render edit product with absent customer must contains product not found" do
-    Product.clear
     location = "/products/1/edit"
 
     response = subject.get location
@@ -100,7 +94,6 @@ describe ProductControllerTest do
   end
 
   it "creates a product" do
-    Product.clear
     response = subject.post "/products", body: product_params
 
     response.headers["Location"].should eq "/products"
@@ -109,7 +102,6 @@ describe ProductControllerTest do
   end
 
   it "when create a product with invalid params must not create" do
-    Product.clear
     response = subject.post "/products", body: invalid_product_params
 
     response.status_code.should eq(200)
@@ -118,7 +110,6 @@ describe ProductControllerTest do
   end
 
   it "updates a product" do
-    Product.clear
     model = create_product
     response = subject.patch "/products/#{model.id}", body: product_params
 
@@ -128,7 +119,6 @@ describe ProductControllerTest do
   end
 
   it "when update a product with invalid params must not update" do
-    Product.clear
     model = create_product
     response = subject.patch "/products/#{model.id}", body: invalid_product_params
 
@@ -138,7 +128,6 @@ describe ProductControllerTest do
   end
   
   it "deletes a product" do
-    Product.clear
     model = create_product
     response = subject.delete "/products/#{model.id}"
 
