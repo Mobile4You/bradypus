@@ -33,6 +33,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bradypus_development
+    ports:
+      - 5432:5432
     volumes:
       - db:/var/lib/postgres/data
 

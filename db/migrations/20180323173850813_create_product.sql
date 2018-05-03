@@ -1,7 +1,7 @@
 -- +micrate Up
 CREATE TABLE products (
   id BIGSERIAL PRIMARY KEY,
-  name VARCHAR,
+  name VARCHAR NOT NULL,
   created_at TIMESTAMP,
   updated_at TIMESTAMP
 );

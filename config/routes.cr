@@ -28,6 +28,7 @@ Amber::Server.configure do |app|
   end
 
   routes :web do
+      resources "/products", ProductController
     get "/", HomeController, :index
   end
 end
