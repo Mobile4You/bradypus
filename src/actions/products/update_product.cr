@@ -1,35 +1,32 @@
-require "../action_result"
+require "../action_exception"
 
 module Products
   class UpdateProduct
-    @result : ActionResult = ActionResult.new
-
+    
     def initialize(@id : Int64?, @update_product : Hash(String, String))
     end
 
     def update
+      validate!
+
       product = Product.find(@id)
       if product.nil?
-        @result.add_error("Product not found")
-        return @result
-      end
-
-      unless valid?
-        return @result
+        raise NotFoundException.new "Product ID #{ @id } Not Found"
       end
 
       product.set_attributes @update_product
 
       unless product.save
-        @result.add_error "Generic Error"
+        raise GenericException.new "Generic Error"
       end
 
-      @result
+      product
     end
 
-    private def valid?
-      @result.add_error "Field name is not valid" if @update_product.fetch("name", "").blank?
-      @result.success?
+    private def validate!
+      if @update_product.fetch("name", "").blank?
+        raise BadRequestException.new "Field name is not valid"
+      end
     end
   end
 end

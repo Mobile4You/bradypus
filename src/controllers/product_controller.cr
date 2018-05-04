@@ -1,10 +1,9 @@
 require "../actions/products/*"
 
 class ProductController < ApplicationController
-  getter errors = [] of String
 
   def index
-    products = Product.all
+    products = Product.all "order by name"
     render("index.slang")
   end
 
@@ -12,7 +11,7 @@ class ProductController < ApplicationController
     if product = Product.find params["id"]
       render("show.slang")
     else
-      flash["warning"] = "Product with ID #{params["id"]} Not Found"
+      flash["warning"] = "Product ID #{params["id"]} Not Found"
       redirect_to "/products"
     end
   end
@@ -24,45 +23,40 @@ class ProductController < ApplicationController
 
   def create
     result = Products::CreateProduct.new({"name" => params["name"]}).create
-    if result.success?
-      flash["success"] = "Created Product successfully."
-      redirect_to "/products"
-    else
-      product = Product.new
-      flash["danger"] = "Could not create Product!"
-      @errors = result.errors
-      render("new.slang")
-    end
+    flash["success"] = "Product has been created."
+    redirect_to "/products"
+  rescue ex
+    product = Product.new
+    flash["danger"] = "#{ex.message}"
+    render("new.slang")
   end
 
   def edit
     if product = Product.find params["id"]
       render("edit.slang")
     else
-      flash["warning"] = "Product with ID #{params["id"]} Not Found"
+      flash["warning"] = "Product ID #{params["id"]} Not Found"
       redirect_to "/products"
     end
   end
 
   def update
     result = Products::UpdateProduct.new(params["id"].to_i64, {"name" => params["name"]}).update
-    if result.success?
-      flash["success"] = "Updated Product successfully."
-      redirect_to "/products"
-    else
-      if product = Product.find(params["id"])
-        @errors = result.errors
-        flash["danger"] = "Could not update Product!"
-        render("edit.slang")
-      end
+    flash["success"] = "Product has been updated."
+    redirect_to "/products"
+  rescue ex
+    if product = Product.find(params["id"])
+      flash["danger"] = "#{ex.message}"
+      render("edit.slang")
     end
   end
 
   def destroy
     if product = Product.find params["id"]
       product.destroy
+      flash["warning"] = "Product ID #{params["id"]} has been destroyed"
     else
-      flash["warning"] = "Product with ID #{params["id"]} Not Found"
+      flash["warning"] = "Product ID #{params["id"]} Not Found"
     end
     redirect_to "/products"
   end
