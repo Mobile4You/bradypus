@@ -113,7 +113,6 @@ describe ProductControllerTest do
     response = subject.post "/products", body: invalid_product_params
 
     response.status_code.should eq(200)
-    response.body.should contain("Could not create Product!")
     response.body.should contain("Field name is not valid")
   end
 
@@ -133,10 +132,9 @@ describe ProductControllerTest do
     response = subject.patch "/products/#{model.id}", body: invalid_product_params
 
     response.status_code.should eq(200)
-    response.body.should contain("Could not update Product!")
     response.body.should contain("Field name is not valid")
   end
-  
+
   it "deletes a product" do
     Product.clear
     model = create_product
