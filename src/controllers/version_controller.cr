@@ -1,10 +1,10 @@
 require "../actions/versions/*"
 
 class VersionController < ApplicationController
-  
+
   def index
     if product = Product.find params["id"]
-      id = params["id"]
+      product_id = params["id"]
       versions = product.versions
       render("index.slang")
     else
@@ -14,7 +14,7 @@ class VersionController < ApplicationController
   end
 
   def create
-    version = Versions::CreateVersion.new({"image" => params["image"], "id" => params["id"]}).create
+    version = Versions::CreateVersion.new({"image" => params["image"], "product_id" => params["id"]}).create
     set_response version.to_json, 201, Content::TYPE[:json]
   rescue ex : BadRequestException
     set_response ex.to_json, 400, Content::TYPE[:json]
