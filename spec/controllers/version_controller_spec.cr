@@ -32,6 +32,9 @@ describe VersionController do
 
   describe "VersionController#index" do
     it "renders the view" do
+      Version.clear
+      Product.clear
+
       version = create_version
       response = subject.get "/products/#{version.product.id}/versions"
 
@@ -42,8 +45,15 @@ describe VersionController do
 
   describe "VersionController#create" do
     it "creates a version" do
+      Version.clear
+      Product.clear
+
       response = subject.post "/products/#{create_product.id}/versions", body: version_params
+
+      version = Version.find_by :image, version_hash["image"]
+
       response.status_code.should eq(201)
+      response.body.should contain(version.to_json)
     end
 
     it "when creating a version without image must not create" do
