@@ -36,7 +36,7 @@ def product_hash
 end
 
 def create_product
-  product_id = Product.new(product_hash)
+  product = Product.new(product_hash)
   product.save
   product
 end
