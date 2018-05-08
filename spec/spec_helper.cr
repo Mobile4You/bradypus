@@ -38,7 +38,7 @@ end
 def create_product
   product_id = Product.new(product_hash)
   product.save
-  model
+  product
 end
 
 def version_hash
