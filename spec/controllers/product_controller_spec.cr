@@ -1,8 +1,4 @@
-require "./spec_helper"
-
-def product_hash
-  {"name" => "Fake"}
-end
+require "../../spec_helper"
 
 def product_params
   params = [] of String
@@ -14,12 +10,6 @@ def invalid_product_params
   params = [] of String
   params << "name="
   params.join("&")
-end
-
-def create_product
-  model = Product.new(product_hash)
-  model.save
-  model
 end
 
 class ProductControllerTest < GarnetSpec::Controller::Test
@@ -40,7 +30,6 @@ describe ProductControllerTest do
   subject = ProductControllerTest.new
 
   it "renders product index template" do
-    Product.clear
     response = subject.get "/products"
 
     response.status_code.should eq(200)
@@ -48,9 +37,8 @@ describe ProductControllerTest do
   end
 
   it "renders product show template" do
-    Product.clear
-    model = create_product
-    location = "/products/#{model.id}"
+    product = create_product
+    location = "/products/#{product.id}"
 
     response = subject.get location
 
@@ -59,7 +47,6 @@ describe ProductControllerTest do
   end
 
   it "when render product by id with absent customer must contains product not found" do
-    Product.clear
     location = "/products/1"
 
     response = subject.get location
@@ -69,7 +56,6 @@ describe ProductControllerTest do
   end
 
   it "renders product new template" do
-    Product.clear
     location = "/products/new"
 
     response = subject.get location
@@ -79,9 +65,8 @@ describe ProductControllerTest do
   end
 
   it "renders product edit template" do
-    Product.clear
-    model = create_product
-    location = "/products/#{model.id}/edit"
+    product = create_product
+    location = "/products/#{product.id}/edit"
 
     response = subject.get location
 
@@ -90,7 +75,6 @@ describe ProductControllerTest do
   end
 
   it "when render edit product with absent customer must contains product not found" do
-    Product.clear
     location = "/products/1/edit"
 
     response = subject.get location
@@ -100,7 +84,6 @@ describe ProductControllerTest do
   end
 
   it "creates a product" do
-    Product.clear
     response = subject.post "/products", body: product_params
 
     response.headers["Location"].should eq "/products"
@@ -109,7 +92,6 @@ describe ProductControllerTest do
   end
 
   it "when create a product with invalid params must not create" do
-    Product.clear
     response = subject.post "/products", body: invalid_product_params
 
     response.status_code.should eq(200)
@@ -117,9 +99,8 @@ describe ProductControllerTest do
   end
 
   it "updates a product" do
-    Product.clear
-    model = create_product
-    response = subject.patch "/products/#{model.id}", body: product_params
+    product = create_product
+    response = subject.patch "/products/#{product.id}", body: product_params
 
     response.headers["Location"].should eq "/products"
     response.status_code.should eq(302)
@@ -127,18 +108,16 @@ describe ProductControllerTest do
   end
 
   it "when update a product with invalid params must not update" do
-    Product.clear
-    model = create_product
-    response = subject.patch "/products/#{model.id}", body: invalid_product_params
+    product = create_product
+    response = subject.patch "/products/#{product.id}", body: invalid_product_params
 
     response.status_code.should eq(200)
     response.body.should contain("Field name is not valid")
   end
 
   it "deletes a product" do
-    Product.clear
-    model = create_product
-    response = subject.delete "/products/#{model.id}"
+    product = create_product
+    response = subject.delete "/products/#{product.id}"
 
     response.headers["Location"].should eq "/products"
     response.status_code.should eq(302)

@@ -1,21 +1,4 @@
-require "./spec_helper"
-
-def product_hash
-  {"name" => "Fake"}
-end
-
-def create_product
-  model = Product.new(product_hash)
-  model.save
-  model
-end
-
-def version_hash
-  {
-    "product_id" => create_product.id.to_s,
-    "image" => "00.XXXXXXX"
-  }
-end
+require "../../spec_helper"
 
 def version_params
   params = [] of String
@@ -29,13 +12,6 @@ def invalid_version_params
   params << "image="
   params.join("&")
 end
-
-def create_version
-  version = Version.new(version_hash)
-  version.save
-  version
-end
-
 
 class VersionControllerTest < GarnetSpec::Controller::Test
   getter handler : Amber::Pipe::Pipeline
@@ -56,7 +32,6 @@ describe VersionController do
 
   describe "VersionController#index" do
     it "renders the view" do
-      Version.clear
       version = create_version
       response = subject.get "/products/#{version.product.id}/versions"
 
@@ -75,7 +50,7 @@ describe VersionController do
       response = subject.post "/products/#{create_product.id}/versions", body: invalid_version_params
       response.status_code.should eq(400)
     end
-    
+
     it "when creating a version with inexistent product_id image must not create" do
       response = subject.post "/products/0/versions", body: version_params
       response.status_code.should eq(404)
