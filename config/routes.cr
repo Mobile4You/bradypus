@@ -8,7 +8,7 @@ Amber::Server.configure do |app|
     plug Amber::Pipe::Logger.new
     plug Amber::Pipe::Session.new
     plug Amber::Pipe::Flash.new
-    plug Amber::Pipe::CSRF.new
+    plug Amber::Pipe::CSRF.new unless Amber.env.development?
     # Reload clients browsers (development only)
     plug Amber::Pipe::Reload.new if Amber.env.development?
   end
@@ -28,7 +28,9 @@ Amber::Server.configure do |app|
   end
 
   routes :web do
-      resources "/products", ProductController
+    resources "/products", ProductController
+    get "/products/:id/versions", VersionController, :index
+    post "/products/:id/versions", VersionController, :create
     get "/", HomeController, :index
   end
 end

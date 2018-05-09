@@ -1,8 +1,3 @@
-- if @errors
-  ul.errors
-    - @errors.each do |error|
-      li = error
-
 == form(action: "/products/#{product.id.to_s}", method: product.id ? :patch : :post) do
   == csrf_tag
   div.form-group

@@ -30,3 +30,26 @@ module Spec
     args:                     "--headless",
   }
 end
+
+def product_hash
+  {"name" => "Fake"}
+end
+
+def create_product
+  product = Product.new(product_hash)
+  product.save
+  product
+end
+
+def version_hash
+  {
+    "product_id" => create_product.id.to_s,
+    "image" => "00.XXXXXXX"
+  }
+end
+
+def create_version
+  version = Version.new(version_hash)
+  version.save
+  version
+end

@@ -15,6 +15,7 @@ div.table-responsive
           td = product.name
           td
             span
+              == link_to("versions", "/products/#{product.id}/versions", class: "btn btn-success btn-xs")
               == link_to("read", "/products/#{product.id}", class: "btn btn-success btn-xs")
               == link_to("edit", "/products/#{product.id}/edit", class: "btn btn-success btn-xs")
               == link_to("delete", "/products/#{ product.id }?_method=delete&_csrf=#{csrf_token}", class: "btn btn-danger btn-xs", onclick: "return confirm('Are you sure?');")
