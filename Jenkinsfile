@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage("Tests / Coverage / Security") {
       steps {
-        sh 'ls'
+        withDockerContainer(image: "crystallang/crystal:0.24.2", args: "-u root") {
+          sh "crystal spec spec"
+        }
       }
     }
   }
