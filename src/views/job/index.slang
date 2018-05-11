@@ -15,7 +15,6 @@ div.table-responsive
           td = job.name
           td
             span
-              == link_to("versions", "/jobs/#{job.id}/versions", class: "btn btn-success btn-xs")
               == link_to("read", "/jobs/#{job.id}", class: "btn btn-success btn-xs")
               == link_to("edit", "/jobs/#{job.id}/edit", class: "btn btn-success btn-xs")
               == link_to("delete", "/jobs/#{ job.id }?_method=delete&_csrf=#{csrf_token}", class: "btn btn-danger btn-xs", onclick: "return confirm('Are you sure?');")

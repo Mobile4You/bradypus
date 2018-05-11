@@ -2,3 +2,5 @@
 a class="nav-item #{active}" href="/" Home
 - active = context.request.path == "/products" ? "active" : ""
 a class="nav-item #{active}" href="/products" Products
+- active = context.request.path == "/jobs" ? "active" : ""
+a class="nav-item #{active}" href="/jobs" Jobs

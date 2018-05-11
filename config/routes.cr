@@ -29,6 +29,7 @@ Amber::Server.configure do |app|
 
   routes :web do
     resources "/products", ProductController
+    resources "/jobs", JobController
     get "/products/:id/versions", VersionController, :index
     post "/products/:id/versions", VersionController, :create
     get "/", HomeController, :index
