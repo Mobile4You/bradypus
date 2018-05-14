@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage("Tests / Coverage / Security") {
       steps {
-        withDockerContainer(image: "crystallang/crystal:0.24.2", args: "-u root --link jenkins_postgres_1:db") {
+        withDockerContainer(image: "crystallang/crystal:0.24.2", args: "-u root --network=jenkins_default --link jenkins_postgres_1:db") {
           sh "shards install"
           sh "amber db create migrate"
           sh "crystal spec spec"
