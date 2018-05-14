@@ -28,10 +28,22 @@ Amber::Server.configure do |app|
   end
 
   routes :web do
+    # Products
     resources "/products", ProductController
-    resources "/jobs", JobController
+    
+    # Jobs
+    get "/products/:id/jobs", JobController, :index
+    post "/products/:id/jobs", JobController, :create
+    get "/products/:id/jobs/:jobId", JobController, :show
+    get "/products/:id/jobs/:jobId/edit", JobController, :edit
+    get "/products/:id/jobs/new", JobController, :new
+    patch "/products/:id/jobs/:jobId", JobController, :update
+    delete "/products/:id/jobs/:jobId", JobController, :destroy
+
+    # Versions
     get "/products/:id/versions", VersionController, :index
     post "/products/:id/versions", VersionController, :create
+
     get "/", HomeController, :index
   end
 end
