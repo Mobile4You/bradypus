@@ -14,7 +14,8 @@ div.table-responsive
         tr
           td = product.name
           td
-            span
+            span 
+              == link_to("jobs", "/products/#{product.id}/jobs", class: "btn btn-success btn-xs")
               == link_to("versions", "/products/#{product.id}/versions", class: "btn btn-success btn-xs")
               == link_to("read", "/products/#{product.id}", class: "btn btn-success btn-xs")
               == link_to("edit", "/products/#{product.id}/edit", class: "btn btn-success btn-xs")
