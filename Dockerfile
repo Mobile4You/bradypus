@@ -1,7 +1,7 @@
 FROM crystallang/crystal:0.24.2 AS builder
 
 RUN apt-get -y update \
-  && apt-get -y install libsqlite3-dev\
+  && apt-get -y install libsqlite3-dev \
   && apt-get -y clean all
 
 RUN mkdir /app
@@ -10,7 +10,6 @@ WORKDIR /app
 COPY . /app
 
 RUN shards build
-
 
 FROM crystallang/crystal:0.24.2
 
