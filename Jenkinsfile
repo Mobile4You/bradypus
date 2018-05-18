@@ -31,7 +31,7 @@ pipeline {
           script {
             commit = getCommitId().take(6)
             def image = docker.build(
-                "${DOCKER_REPOSITORY}:${PRODUCT}.${env.BUILD_ID}-${commit}", '.')
+                "${DOCKER_REPOSITORY}:${env.BUILD_ID}-${commit}", '.')
             image.push()
           }
         }
