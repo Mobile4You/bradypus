@@ -53,3 +53,17 @@ def create_version
   version.save
   version
 end
+
+def job_hash
+  {
+    "name" => "Fake",
+    "job_type" => "lalazin",
+    "datacenters" => "locahostl"
+  }
+end
+
+def create_job
+  job = Job.new(job_hash)
+  job.save
+  job
+end
