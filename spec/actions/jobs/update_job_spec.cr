@@ -4,12 +4,14 @@ require "../../../src/actions/jobs/update_job.cr"
 describe Jobs::UpdateJob do
   describe "#update" do
     it "when updating with absent id must raise NotFoundException" do
+      Job.all.each { |job| job.destroy }
       expect_raises(NotFoundException) do
-        Jobs::UpdateJob.new(1_i64, {"name" => "Another name"}).update
+        Jobs::UpdateJob.new(1_i64, {"name" => "Another namezin"}).update
       end
     end
 
     it "when updating with invalid new name must raise BadRequestException" do
+      Job.all.each { |job| job.destroy }
       job = create_job
 
       expect_raises(BadRequestException) do
@@ -18,6 +20,7 @@ describe Jobs::UpdateJob do
     end
 
     it "when updating with missing field must raise BadRequestException" do
+      Job.all.each { |job| job.destroy }
       job = create_job
 
       expect_raises(BadRequestException) do
@@ -26,6 +29,7 @@ describe Jobs::UpdateJob do
     end
 
     it "when update with correct params must return successful result" do
+      Job.all.each { |job| job.destroy }
       job = create_job
       Jobs::UpdateJob.new(job.id, {
         "name" => "Another name",
